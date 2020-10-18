@@ -16,7 +16,6 @@ public class CommandsManager {
         getCommands().add(new InfoCommand());
         getCommands().add(new MemberCommand());
         getCommands().add(new ReloadCommand());
-        getCommands().add(new SurfyCommands());
         getCommands().add(new TopCommand());
         getCommands().add(new UpdateCommand());
         getCommands().add(new VerifyCommand());
