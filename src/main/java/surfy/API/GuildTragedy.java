@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.Map;
 
 public class GuildTragedy {
+
+    /* Getting the Guild in Hypixel's APIs */
     private GuildTragedy guild;
     private long exp;
     private GuildMember[] members;
@@ -18,7 +20,7 @@ public class GuildTragedy {
     }
 
     public String getCreated() {
-        return "18-08-2019";
+        return "18-08-2019"; //LEL
     }
 
     public long getOnlinePlayers() throws Exception {

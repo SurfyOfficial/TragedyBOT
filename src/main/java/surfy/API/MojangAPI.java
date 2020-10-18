@@ -1,18 +1,15 @@
 package surfy.API;
 
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
-import surfy.bot.Main;
-import surfy.utils.ConfigManager;
-import surfy.utils.Utils;
-import net.dv8tion.jda.api.utils.MarkdownSanitizer;
-import net.dv8tion.jda.api.utils.MarkdownUtil;
 import org.jsoup.Jsoup;
+import surfy.bot.Main;
+import surfy.utils.Utils;
 
 import java.util.Date;
 import java.util.Properties;
 
-@SuppressWarnings("unused")
 public class MojangAPI {
 
     public static String getUsername(String UUID,boolean config) {
@@ -50,7 +47,7 @@ public class MojangAPI {
 
 
 class Profile {
-    private String  id;
+    private String id;
     private String name;
 
     public String getName() {
@@ -78,6 +75,7 @@ class PreviousPlayerNameEntry {
     public boolean isPlayersInitialName() {
         return getChangeTime() == 0;
     }
+
     @Override
     public String toString() {
         return "Name: " + name + " Date of change: " + new Date(changeTime).toString();

@@ -1,10 +1,12 @@
 package surfy.API;
 
+import surfy.modes.Bedwars;
+
 import java.util.Map;
 
-import surfy.modes.*;
-
 public class Player {
+
+    /* Getting Player from Hypixel's APIs */
     private Player player;
     private String displayname;
     private long lastLogin;
@@ -51,21 +53,4 @@ public class Player {
     public Bedwars getBedwarsInfo() {
         return new Bedwars(this);
     }
-
-   /* public Duels getDuelsInfo() {
-        return new Duels(this);
-    }
-
-    public Skywars getSkywarsInfo() {
-        return new Skywars(this);
-    }
-
-    public UHC getUHCInfo() {
-        return new UHC(this);
-    }
-
-    public BSG getBSGInfo() {
-        return new BSG(this);
-    }
-    */
 }

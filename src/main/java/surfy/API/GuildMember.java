@@ -3,6 +3,8 @@ package surfy.API;
 import java.util.Map;
 
 public class GuildMember {
+
+    /* Getting GuildMember from Hypixel's APIs */
     private String uuid;
     private String rank;
     private long joined;

@@ -3,6 +3,9 @@ package surfy.API;
 import com.sun.xml.internal.ws.util.StringUtils;
 
 public class Status {
+
+
+    /* Getting PlayerStatus from Hypixel's APIs */
     private boolean online;
     private Status session;
     private String gameType;
