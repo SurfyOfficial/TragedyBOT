@@ -19,19 +19,21 @@ import surfy.utils.Utils;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
-import java.text.SimpleDateFormat;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Objects;
-import java.util.TimeZone;
 
 public class EventListener extends ListenerAdapter {
 
     public boolean approval = false;
     public boolean userFound = false;
 
+
+    Date date = new Date();
+
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
+        /* Read texts as commands */
         Message message = event.getMessage();
         String[] syntax = message.getContentDisplay().split(" ");
         CommandsManager.getCommands()
@@ -41,7 +43,8 @@ public class EventListener extends ListenerAdapter {
     }
 
     @Override
-    public void onPrivateMessageReceived(@Nonnull PrivateMessageReceivedEvent event) {
+    public void onPrivateMessageReceived(@Nonnull PrivateMessageReceivedEvent event) {  /* Private Message Received Event */
+        /* Application formatting */
         Message message = event.getMessage();
         if(ConfigManager.getQueueApplications().containsKey(event.getAuthor().getIdLong())){
             ApplicationForm applicationForm = ConfigManager.getQueueApplications().get(message.getAuthor().getIdLong());
@@ -97,10 +100,12 @@ public class EventListener extends ListenerAdapter {
     }
 
     @Override
-    public void onMessageReactionAdd(@Nonnull MessageReactionAddEvent event) {
+    public void onMessageReactionAdd(@Nonnull MessageReactionAddEvent event) {  /* Message Reaction Add Event */
         if(Objects.requireNonNull(event.getUser()).getId().equals(Main.getJDiscordAPI().getSelfUser().getId()))
+            /* Ignores if the BOT is the author of the event. */
             return;
         try {
+            /* Colored Roles */
             Message message = event.getTextChannel().retrieveMessageById(event.getMessageId()).submit().get();
             if(message.getEmbeds().size() > 0
                     && Objects.requireNonNull(Objects.requireNonNull(Objects.requireNonNull(message.getEmbeds().get(0).getFooter()).getText())).contains("TragedyRoles")
@@ -124,44 +129,43 @@ public class EventListener extends ListenerAdapter {
                 }
                 return;
             }
+
+            /* Verification system */
             if(message.getEmbeds().size() > 0 && Objects.requireNonNull(message.getEmbeds().get(0).getTitle()).contains("READ HERE TO VERIFY")
                     && message.getAuthor().getId().equals(Main.getJDiscordAPI().getSelfUser().getId())) {
                 event.getGuild().addRoleToMember(event.getUserId(),Utils.getMemberRole()).queue();
                 event.getGuild().removeRoleFromMember(event.getUserId(),Utils.getUnverifiedRole()).queue();
                 System.out.println("TragedyBOT: Added role Members to: " + event.getUser().getName());
                 message.clearReactions().queue();
-
-                Date date = new Date();
-                SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
-                SimpleDateFormat hourFormat = new SimpleDateFormat("HH.mm:ss");
-                hourFormat.setTimeZone(TimeZone.getTimeZone("EST"));
-                dateFormat.setTimeZone(TimeZone.getTimeZone("EST"));
                 EmbedBuilder embedVerify = new EmbedBuilder();
                 User user = Main.getJDiscordAPI().getUsersByName(Objects.requireNonNull(Objects.requireNonNull(message.getEmbeds().get(0).getAuthor()).getName()),true).get(0);
                 embedVerify.setTitle(user.getAsTag() + " verified successfully!")
-                        .addField(user.getId(),dateFormat.format(date)+" - "+hourFormat.format(date)+" (EST).",false)
+                        .addField(user.getAsMention(),user.getId(),false)
                         .setColor(Color.green)
-                        .setAuthor(user.getAsTag() + " | " + user.getId(),message.getAuthor().getEffectiveAvatarUrl(),message.getAuthor().getEffectiveAvatarUrl())
+                        .setAuthor(user.getAsTag() + " | " + user.getId(),user.getEffectiveAvatarUrl(),user.getEffectiveAvatarUrl())
                         .setFooter("TragedyBOT v1.1 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
                         .setTimestamp(new Date().toInstant());
                 message.editMessage(embedVerify.build()).queue();
                 return;
             }
+
+            /* Add Applicant role */
             if(message.getContentDisplay().contains("React here if you wish to apply for Tragedy Guild.")
                     && message.getAuthor().getId().equals(Main.getJDiscordAPI().getSelfUser().getId())) {
                 event.getGuild().addRoleToMember(event.getUserId(),Utils.getApplicantRole()).queue();
                 System.out.println("TragedyBOT: Added role Applicant to: " + event.getUser().getName());
                 return;
             }
+
+            /* Sending confirm to the Applicant user */
             APIManager apiManager = new APIManager();
             if(message.getEmbeds().size() > 0 && Objects.requireNonNull(message.getEmbeds().get(0).getTitle()).contains("Result") &&
                     Utils.isOfficer(Objects.requireNonNull(event.getMember())) ||
                     Utils.isSurfy(Objects.requireNonNull(event.getMember()).getId())) {
                 User user = Main.getJDiscordAPI().getUsersByName(Objects.requireNonNull(Objects.requireNonNull(message.getEmbeds().get(0).getAuthor()).getName()),true).get(0);
                 switch(event.getReactionEmote().getId()) {
-                    case "✅":
                     case "757271443674365962":
-                    case "756126627280191548":
+                        /* Accepting */
                         Utils.sendConfirm(user,MarkdownUtil.bold("" +
                                 "We would like to congratulate you, you've been accepted into Tragedy!" +
                                 "\nYou'll be invited in the guild soon!" +
@@ -178,9 +182,8 @@ public class EventListener extends ListenerAdapter {
                         event.getGuild().addRoleToMember(event.getUserId(),Utils.getChildRole()).queue();
                         event.getGuild().removeRoleFromMember(event.getUserId(),Utils.getApplicantRole()).queue();
                         break;
-                    case "❌":
                     case "757271455066095729":
-                    case "756126627330523198":
+                        /* Rejecting */
                         Utils.sendConfirm(user,MarkdownUtil.bold("" +
                                 "Unfortunately your statistics do not meet our current requirements, " +
                                 "but you’re free to apply again in the future." +
@@ -196,11 +199,7 @@ public class EventListener extends ListenerAdapter {
                         System.out.println("Applications: " + event.getUser().getName() + " rejected user " + user.getName());
                         event.getGuild().removeRoleFromMember(event.getUserId(),Utils.getApplicantRole()).queue();
                         break;
-                    case "":
-                        break;
                 }
-            } else {
-                return;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -208,9 +207,12 @@ public class EventListener extends ListenerAdapter {
     }
 
     @Override
-    public void onMessageReactionRemove(@Nonnull MessageReactionRemoveEvent event) {
-        if(Objects.requireNonNull(event.getUser()).getId().equals(Main.getJDiscordAPI().getSelfUser().getId())) return;
+    public void onMessageReactionRemove(@Nonnull MessageReactionRemoveEvent event) {  /* Message Reaction Remove Event */
+        if(Objects.requireNonNull(event.getUser()).getId().equals(Main.getJDiscordAPI().getSelfUser().getId()))
+            /* Ignores if the BOT is the author of the event. */
+            return;
         try {
+            /* Remove Applicant Role */
             Message message = event.getTextChannel().retrieveMessageById(event.getMessageId()).submit().get();
             if(message.getContentDisplay().contains("React here if you wish to apply for Tragedy Guild.")
                     && message.getAuthor().getId().equals(Main.getJDiscordAPI().getSelfUser().getId())){
@@ -218,6 +220,7 @@ public class EventListener extends ListenerAdapter {
                 System.out.println("TragedyBOT: Removed role Applicant to: " + event.getUser().getName());
             }
 
+            /* Remove Color Roles */
             if(message.getEmbeds().size() > 0
                     && Objects.requireNonNull(Objects.requireNonNull(Objects.requireNonNull(message.getEmbeds().get(0).getFooter()).getText())).contains("TragedyRoles")
                     && message.getAuthor().getId().equals(Main.getJDiscordAPI().getSelfUser().getId())) {
@@ -238,7 +241,6 @@ public class EventListener extends ListenerAdapter {
                         event.getGuild().removeRoleFromMember(event.getUser().getId(),Utils.getGreenColor()).queue();
                         break;
                 }
-                return;
             }
         } catch (Exception e) {
             e.printStackTrace();
