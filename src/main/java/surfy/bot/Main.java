@@ -24,8 +24,8 @@ public class Main {
             configManager.load();
             commandsManager = new CommandsManager();
 
-            //JDABuilder builder = new JDABuilder("NzU0MDg3Mzk2NTEzMTUzMDI2.X1vonQ.Yr-JRxswM58uUOqqmBKnFaBQcXE"); //test bot
-            JDABuilder builder = new JDABuilder("NzU0MDc2ODM4MTA3ODA3ODE1.X1veyA.UPS3TbRdMFrCJNEn4Z_p33oOU5Y"); //actual bot
+            //JDABuilder builder = new JDABuilder("NzU0MDg3Mzk2NTEzMTUzMDI2.X1vonQ.Nbn9mBFrGrf-KoGCuhUNyb70gNM"); //test bot
+            JDABuilder builder = new JDABuilder("NzU0MDc2ODM4MTA3ODA3ODE1.X1veyA.z4kg0wB7iyzCxlfqyegm2lyV55k"); //actual bot
 
             builder.setDisabledCacheFlags(EnumSet.of(CacheFlag.ACTIVITY, CacheFlag.VOICE_STATE));
             builder.setBulkDeleteSplittingEnabled(false);
