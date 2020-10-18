@@ -16,7 +16,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public class APIManager {
 
-    private final String API_KEY = "a37e4660-353c-4ee4-a64b-882e56fedcd0";
+    private final String API_KEY = "CENSORED";
     /* Hypixel API-KEY */
 
     private String guildData;
