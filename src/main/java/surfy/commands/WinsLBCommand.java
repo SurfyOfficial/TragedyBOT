@@ -11,7 +11,6 @@ import surfy.utils.IndexedMap;
 import surfy.utils.Utils;
 
 import java.awt.*;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class WinsLBCommand extends Command {
@@ -25,11 +24,6 @@ public class WinsLBCommand extends Command {
     @Override
     public void onExecute(Message message, String[] args) {
         try {
-            Date date = new Date();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            SimpleDateFormat hourFormat = new SimpleDateFormat("HH.mm:ss");
-            hourFormat.setTimeZone(TimeZone.getTimeZone("EST"));
-            dateFormat.setTimeZone(TimeZone.getTimeZone("EST"));
             EmbedBuilder embedBuilder = new EmbedBuilder();
             EmbedBuilder embedTop = new EmbedBuilder();
 
@@ -93,9 +87,9 @@ public class WinsLBCommand extends Command {
                                             embedTop.setFooter("TragedyBOT v2.1 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
 													.setTimestamp(new Date().toInstant());
                                         });
-                                embedTop.addField("Last update:",dateFormat.format(date) + " - " + hourFormat.format(date)+" (EST).",false);
+                                //embedTop.addField("Last update:",dateFormat.format(date) + " - " + hourFormat.format(date)+" (EST).",false);
                                 response.editMessage(embedTop.build()).queue();
-                                System.out.println("TragedyBOT: WLeaderboard updated. ("+dateFormat.format(date) + " - " + hourFormat.format(date)+" EST.)");
+                                System.out.println("TragedyBOT: WLeaderboard updated. +" + new Date().toInstant());
                             } catch(Exception exc) {
                                 exc.printStackTrace();
                             }
