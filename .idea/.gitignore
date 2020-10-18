@@ -1,2 +1,4 @@
 # Default ignored files
 /workspace.xml
+/target/
+/src/main/java/surfy/bot/
