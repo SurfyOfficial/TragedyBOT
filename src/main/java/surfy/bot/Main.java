@@ -24,7 +24,6 @@ public class Main {
             configManager.load();
             commandsManager = new CommandsManager();
 
-
             JDABuilder builder = new JDABuilder("CENSORED"); //actual bot
 
             builder.setDisabledCacheFlags(EnumSet.of(CacheFlag.ACTIVITY, CacheFlag.VOICE_STATE));
