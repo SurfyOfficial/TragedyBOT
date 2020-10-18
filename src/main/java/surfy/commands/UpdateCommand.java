@@ -38,7 +38,7 @@ public class UpdateCommand extends Command {
                     .addField("**[Removed]**",
                             "**Bugs** - Fixed lots of bots inner problems." +
                                     "\n**eGirls** - be gone.",false)
-                    .setFooter("TragedyBOT v2.1 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                    .setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
                     .setTimestamp(new Date().toInstant());
             message.getChannel().sendMessage(embedUpdates.build()).queue();
         }
@@ -54,7 +54,7 @@ public class UpdateCommand extends Command {
                     .addField("**[Removed]**",
                             "**Recoded** - Recoded 85% of the BOT (everything but the applications.)" +
                                     "\n**Lags/delays** - Recoding made the BOT 65% **FASTER**.",false)
-                    .setFooter("TragedyBOT v2.1 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                    .setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
                     .setTimestamp(new Date().toInstant());
             message.getChannel().sendMessage(embedUpdates.build()).queue();
         }
@@ -71,7 +71,7 @@ public class UpdateCommand extends Command {
                             "**Recoded** - Recoded 85% of the BOT (everything but the applications.)" +
                                     "\n**Lags/delays** - Recoding made the BOT 65% **FASTER**." +
                                     "\n**BugFixing** - Fixed few bugs.",false)
-                    .setFooter("TragedyBOT v2.1 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                    .setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
                     .setTimestamp(new Date().toInstant());
             message.getChannel().sendMessage(embedUpdates.build()).queue();
         }
@@ -85,7 +85,7 @@ public class UpdateCommand extends Command {
                             "**Reaction roles!** - New ReactionRoles. Check"+ Emotes.reactionChannel +" -*Everyone*",false)
                     .addField("**[Removed]**",
                                     "\n**BugFixing** - Fixed few bugs.",false)
-                    .setFooter("TragedyBOT v2.1 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                    .setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
                     .setTimestamp(new Date().toInstant());
             message.getChannel().sendMessage(embedUpdates.build()).queue();
         }

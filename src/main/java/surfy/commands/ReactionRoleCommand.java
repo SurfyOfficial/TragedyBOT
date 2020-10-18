@@ -26,7 +26,7 @@ public class ReactionRoleCommand extends Command {
         if(message.getMember() != null && !Utils.isSurfy(message.getAuthor().getId()) & !Utils.isOfficer(message.getMember())) {
             embedRoles.setTitle("You don't have this permission.")
                     .setColor(Color.black)
-                    .setFooter("TragedyBOT v2.1 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                    .setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
 					.setTimestamp(new Date().toInstant())
                     .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(),message.getAuthor().getEffectiveAvatarUrl(),message.getAuthor().getEffectiveAvatarUrl());
             message.getChannel().sendMessage(embedRoles.build()).queue();
@@ -43,7 +43,7 @@ public class ReactionRoleCommand extends Command {
                                                 "\n\n *React to get a color.* ", false);
         embedConfirm.setTitle("Done!")
 				.setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(),message.getAuthor().getEffectiveAvatarUrl(),message.getAuthor().getEffectiveAvatarUrl())
-                .setFooter("TragedyBOT v2.1 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                .setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
 				.setTimestamp(new Date().toInstant())
                 .setColor(Color.green);
 

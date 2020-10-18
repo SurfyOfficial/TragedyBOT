@@ -4,14 +4,20 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
-import surfy.API.*;
+import surfy.API.APIManager;
+import surfy.API.GuildMember;
+import surfy.API.MojangAPI;
+import surfy.API.Player;
 import surfy.managers.Command;
 import surfy.utils.Utils;
 
 import java.awt.*;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.*;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class MemberCommand extends Command {
@@ -35,7 +41,7 @@ public class MemberCommand extends Command {
 
             if (!Utils.isSurfy(message.getAuthor().getId()) & !Utils.isGuildMember(Objects.requireNonNull(message.getMember()))) {
                 embedBuilder.setTitle("Error! You must be a Guild Member in order to use this bot!")
-                        .setColor(Color.red).setFooter("TragedyBOT v2.1 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                        .setColor(Color.red).setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
 						.setTimestamp(new Date().toInstant())
                         .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(), message.getAuthor().getEffectiveAvatarUrl(), message.getAuthor().getEffectiveAvatarUrl());
                 message.getChannel().sendMessage(embedBuilder.build()).queue();
@@ -45,7 +51,7 @@ public class MemberCommand extends Command {
             if(args.length < 2) {
                 embedMemberInfo.setTitle(MarkdownUtil.italics("Type >g member <username>"))
                         .setColor(Color.cyan)
-                        .setFooter("TragedyBOT v2.1 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                        .setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
 						.setTimestamp(new Date().toInstant())
                         .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(),message.getAuthor().getEffectiveAvatarUrl(),message.getAuthor().getEffectiveAvatarUrl());
                 message.getChannel().sendMessage(embedMemberInfo.build()).queue();
@@ -65,7 +71,7 @@ public class MemberCommand extends Command {
 
                 if(guildMember == null) {
                     embedMemberInfo.setTitle("Error! This user is not in the guild!")
-                            .setFooter("TragedyBOT v2.1 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                            .setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
 							.setTimestamp(new Date().toInstant())
                             .setColor(Color.orange)
                             .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(),message.getAuthor().getEffectiveAvatarUrl(),message.getAuthor().getEffectiveAvatarUrl());
@@ -100,11 +106,11 @@ public class MemberCommand extends Command {
                         .addField("Weekly Contribution:", MarkdownUtil.monospace(member.format(weeklyExp.get())),false)
                         .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(),message.getAuthor().getEffectiveAvatarUrl(),message.getAuthor().getEffectiveAvatarUrl());
                 if (player.getLastLogin() > player.getLastLogout()) {
-                    embedMember.setFooter("Online on | TragedyBOT v2.1 by ↬Surfy#0069", "https://i.imgur.com/OXO5HSW.png")
+                    embedMember.setFooter("Online on | TragedyBOT v2.2 by ↬Surfy#0069", "https://i.imgur.com/OXO5HSW.png")
 							.setTimestamp(new Date().toInstant());
                 } else {
                     embedMember.addField("Last Login", MarkdownUtil.monospace(Utils.formatTimestamp(player.getLastLogin())), false)
-                            .setFooter("Offline | TragedyBOT v2.1 by ↬Surfy#0069", "https://i.imgur.com/NNBWr17.png")
+                            .setFooter("Offline | TragedyBOT v2.2 by ↬Surfy#0069", "https://i.imgur.com/NNBWr17.png")
 							.setTimestamp(new Date().toInstant());
                 }
                 message.getChannel().sendMessage(embedMember.build()).queue();

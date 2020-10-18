@@ -10,11 +10,7 @@ import surfy.utils.Utils;
 
 import java.awt.*;
 import java.text.NumberFormat;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.Date;
+import java.util.*;
 
 public class WeeklyBottomCommand extends Command {
 
@@ -34,7 +30,7 @@ public class WeeklyBottomCommand extends Command {
 
             if (!Utils.isSurfy(message.getAuthor().getId()) & !Utils.isGuildMember(Objects.requireNonNull(message.getMember()))) {
                 embedBuilder.setTitle("Error! You must be a Guild Member in order to use this bot!")
-                        .setColor(Color.red).setFooter("TragedyBOT v2.1 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                        .setColor(Color.red).setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
 						.setTimestamp(new Date().toInstant())
                         .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(), message.getAuthor().getEffectiveAvatarUrl(), message.getAuthor().getEffectiveAvatarUrl());
                 message.getChannel().sendMessage(embedBuilder.build()).queue();
@@ -43,7 +39,7 @@ public class WeeklyBottomCommand extends Command {
 
             embedweeklybottom.setColor(Color.orange)
                     .setTitle("Calculating weekly experience...")
-                    .setFooter("TragedyBOT v2.1 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                    .setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
 						.setTimestamp(new Date().toInstant())
                     .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(),message.getAuthor().getEffectiveAvatarUrl(),message.getAuthor().getEffectiveAvatarUrl());
             message.getChannel().sendMessage(embedweeklybottom.build()).queue(response -> {

@@ -11,7 +11,10 @@ import surfy.utils.IndexedMap;
 import surfy.utils.Utils;
 
 import java.awt.*;
-import java.util.*;
+import java.util.Date;
+import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class WinsLBCommand extends Command {
 
@@ -29,7 +32,7 @@ public class WinsLBCommand extends Command {
 
             if (!Utils.isSurfy(message.getAuthor().getId()) & !Utils.isGuildMember(Objects.requireNonNull(message.getMember()))) {
                 embedBuilder.setTitle("Error! You must be a Guild Member in order to use this bot!")
-                        .setColor(Color.red).setFooter("TragedyBOT v2.1 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                        .setColor(Color.red).setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
 						.setTimestamp(new Date().toInstant())
                         .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(), message.getAuthor().getEffectiveAvatarUrl(), message.getAuthor().getEffectiveAvatarUrl());
                 message.getChannel().sendMessage(embedBuilder.build()).queue();
@@ -40,7 +43,7 @@ public class WinsLBCommand extends Command {
                 if(!Utils.isSurfy(message.getAuthor().getId()) & !Utils.isOfficer(message.getMember())) {
                     embedTop.setTitle("You do not have this permission.");
                     embedTop.setColor(Color.red);
-                    embedTop.setFooter("TragedyBOT v2.1 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                    embedTop.setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
 							.setTimestamp(new Date().toInstant())
                             .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(),message.getAuthor().getEffectiveAvatarUrl(),message.getAuthor().getEffectiveAvatarUrl());
                     message.getChannel().sendMessage(embedTop.build()).queue();
@@ -50,13 +53,13 @@ public class WinsLBCommand extends Command {
                 embedConfirm.setTitle("Successfully created a new Leaderboard!")
                         .addField("Note: This is an automatic leaderboard. **Don't create copies!!**","Check it in the " + Emotes.lbChannel + " channel.",false)
                         .setColor(Color.green)
-                        .setFooter("TragedyBOT v2.1 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                        .setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
 						.setTimestamp(new Date().toInstant())
                         .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(),message.getAuthor().getEffectiveAvatarUrl(),message.getAuthor().getEffectiveAvatarUrl());
                 message.getChannel().sendMessage(embedConfirm.build()).queue(msg -> msg.addReaction(Emotes.YES).queue());
 
                 embedTop.setTitle("Calculating wins leaderboard...")
-						.setFooter("TragedyBOT v2.1 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+						.setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
 						.setTimestamp(new Date().toInstant())
 						.setColor(Color.orange);
                 Timer timer = new Timer();
@@ -84,7 +87,7 @@ public class WinsLBCommand extends Command {
                                                             MarkdownUtil.bold("\nTotal Wins » ") + totalWins +
                                                             //MarkdownUtil.bold("\nLevel » ") + levels[0] + " ("+lvlPercentage+"%)" +
                                                             MarkdownUtil.bold("\nExp » ") + exp, false);
-                                            embedTop.setFooter("TragedyBOT v2.1 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                                            embedTop.setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
 													.setTimestamp(new Date().toInstant());
                                         });
                                 //embedTop.addField("Last update:",dateFormat.format(date) + " - " + hourFormat.format(date)+" (EST).",false);
