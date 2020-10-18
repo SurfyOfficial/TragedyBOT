@@ -8,10 +8,8 @@ import surfy.managers.Command;
 import surfy.utils.Utils;
 
 import java.awt.*;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
-import java.util.TimeZone;
 
 public class BlacklistCommand extends Command {
 
@@ -27,14 +25,10 @@ public class BlacklistCommand extends Command {
 
     @Override
     public void onExecute(Message message, String[] args) {
-        Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat hourFormat = new SimpleDateFormat("HH.mm:ss");
-        hourFormat.setTimeZone(TimeZone.getTimeZone("EST"));
-        dateFormat.setTimeZone(TimeZone.getTimeZone("EST"));
         EmbedBuilder embedBlacklist = new EmbedBuilder();
 
         if(message.getMember() != null && !Utils.isSurfy(message.getAuthor().getId()) & !Utils.isOfficer(message.getMember())) {
+            /* Checks if messageAuthor is a Guild Staff. */
             embedBlacklist.setTitle("You don't have this permission.")
                     .setColor(Color.black)
                     .setFooter("TragedyBOT v2.1 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
@@ -61,7 +55,7 @@ public class BlacklistCommand extends Command {
                 message.getGuild().removeRoleFromMember(memb.getUser().getId(),Utils.getAdultRole()).queue();
             }
             embedBlacklist.setTitle(memb.getUser().getName() + " | \"" + ign + "\" blacklisted successfully!")
-                    .addField("Issued by: ","**"+message.getAuthor().getAsMention()+"** at: " +dateFormat.format(date) + " - " + hourFormat.format(date)+" (EST).",false)
+                    .addField("Issued by: ","**"+message.getAuthor().getAsMention()+"**",false)
                     .setColor(Color.black)
                     .setFooter("TragedyBOT v2.1 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
 					.setTimestamp(new Date().toInstant())
@@ -69,7 +63,7 @@ public class BlacklistCommand extends Command {
             message.getChannel().sendMessage(embedBlacklist.build()).queue();
         } else {
             embedBlacklist.setTitle("\"" + ign + "\" blacklisted successfully!")
-                    .addField("Issued by: ", "**" + message.getAuthor().getAsMention() + "** at: " + dateFormat.format(date) + " - " + hourFormat.format(date) + " (EST).", false)
+                    .addField("Issued by: ","**"+message.getAuthor().getAsMention()+"**",false)
                     .setColor(Color.black)
                     .setFooter("TragedyBOT v2.1 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
 					.setTimestamp(new Date().toInstant())

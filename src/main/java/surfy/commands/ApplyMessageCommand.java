@@ -5,9 +5,9 @@ import net.dv8tion.jda.api.entities.Message;
 import surfy.managers.Command;
 import surfy.utils.Emotes;
 import surfy.utils.Utils;
-import java.util.Date;
 
 import java.awt.*;
+import java.util.Date;
 import java.util.Objects;
 
 public class ApplyMessageCommand extends Command {
@@ -23,6 +23,7 @@ public class ApplyMessageCommand extends Command {
         try {
             EmbedBuilder embedBuilder = new EmbedBuilder();
             if (!Utils.isSurfy(message.getAuthor().getId()) & !Utils.isGuildMember(Objects.requireNonNull(message.getMember()))) {
+                /* Checks if messageAuthor is a Guild Member. */
                 embedBuilder.setTitle("Error! You must be a Guild Member in order to use this bot!")
                         .setColor(Color.red).setFooter("TragedyBOT v2.1 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
 						.setTimestamp(new Date().toInstant())
@@ -33,6 +34,7 @@ public class ApplyMessageCommand extends Command {
 
             EmbedBuilder embedPussy = new EmbedBuilder();
             if(!Utils.isSurfy(message.getAuthor().getId()) & !Utils.isOfficer(message.getMember())) {
+                /* Checks if messageAuthor is a Guild Staff. */
                 embedPussy.setTitle("You do not have this permission.");
                 embedPussy.setColor(Color.red).setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(),message.getAuthor().getEffectiveAvatarUrl(),message.getAuthor().getEffectiveAvatarUrl());
                 embedPussy.setFooter("TragedyBOT v2.1 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
