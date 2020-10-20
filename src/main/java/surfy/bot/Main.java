@@ -17,6 +17,8 @@ public class Main {
     private static JDA JDiscordAPI;
     private static CommandsManager commandsManager;
     private static ConfigManager configManager;
+    public static final String version = "TragedyBOT v2.3 by ↬Surfy#0069";
+    public static final String head = "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec";
 
     public static void main(String[] args) {
         try{
@@ -24,7 +26,8 @@ public class Main {
             configManager.load();
             commandsManager = new CommandsManager();
 
-            JDABuilder builder = new JDABuilder("CENSORED"); //actual bot
+            JDABuilder builder = new JDABuilder("CENSORED"); //test bot
+            //JDABuilder builder = new JDABuilder("CENSORED"); //actual bot
 
             builder.setDisabledCacheFlags(EnumSet.of(CacheFlag.ACTIVITY, CacheFlag.VOICE_STATE));
             builder.setBulkDeleteSplittingEnabled(false);
