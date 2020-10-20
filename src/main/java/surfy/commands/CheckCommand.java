@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.utils.MarkdownSanitizer;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 import surfy.API.APIManager;
 import surfy.API.Player;
+import surfy.bot.Main;
 import surfy.managers.Command;
 import surfy.modes.Bedwars;
 import surfy.utils.Emotes;
@@ -33,7 +34,7 @@ public class CheckCommand extends Command {
             EmbedBuilder embedBuilder = new EmbedBuilder();
             if (!Utils.isSurfy(message.getAuthor().getId()) & !Utils.isGuildMember(Objects.requireNonNull(message.getMember()))) {
                 embedBuilder.setTitle("Error! You must be a Guild Member in order to use this bot!")
-                        .setColor(Color.red).setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                        .setColor(Color.red).setFooter(Main.version, Main.head)
 						.setTimestamp(new Date().toInstant())
                         .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(), message.getAuthor().getEffectiveAvatarUrl(), message.getAuthor().getEffectiveAvatarUrl());
                 message.getChannel().sendMessage(embedBuilder.build()).queue();
@@ -44,7 +45,7 @@ public class CheckCommand extends Command {
                 EmbedBuilder embedError = new EmbedBuilder();
                 embedError.setTitle(MarkdownUtil.italics("Type >g check bw <username>"))
                         .setColor(Color.cyan)
-                        .setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                        .setFooter(Main.version, Main.head)
 						.setTimestamp(new Date().toInstant())
                         .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(),message.getAuthor().getEffectiveAvatarUrl(),message.getAuthor().getEffectiveAvatarUrl());
                 message.getChannel().sendMessage(embedError.build()).queue();
@@ -61,7 +62,7 @@ public class CheckCommand extends Command {
                 if(!Utils.isSurfy(message.getAuthor().getId()) & !Utils.isOfficer(message.getMember())) {
                     embedMemberInfo.setTitle("You do not have this permission.")
                             .setColor(Color.red)
-                            .setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                            .setFooter(Main.version, Main.head)
 							.setTimestamp(new Date().toInstant())
                             .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(),message.getAuthor().getEffectiveAvatarUrl(),message.getAuthor().getEffectiveAvatarUrl());
                     message.getChannel().sendMessage(embedMemberInfo.build()).queue();
@@ -69,7 +70,7 @@ public class CheckCommand extends Command {
                 }
                 embedMemberInfo.setTitle("Error! This user does not exist")
                         .setColor(Color.orange)
-                        .setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                        .setFooter(Main.version, Main.head)
 						.setTimestamp(new Date().toInstant())
                         .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(),message.getAuthor().getEffectiveAvatarUrl(),message.getAuthor().getEffectiveAvatarUrl());
                 message.getChannel().sendMessage(embedMemberInfo.build()).queue();

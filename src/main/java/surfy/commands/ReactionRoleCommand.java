@@ -14,6 +14,7 @@ import java.util.Objects;
 public class ReactionRoleCommand extends Command {
 
     private static final String Prefix = ">g ";
+    private boolean found;
 
     public ReactionRoleCommand() {
         super(Prefix + "reactionroles");
@@ -26,14 +27,13 @@ public class ReactionRoleCommand extends Command {
         if(message.getMember() != null && !Utils.isSurfy(message.getAuthor().getId()) & !Utils.isOfficer(message.getMember())) {
             embedRoles.setTitle("You don't have this permission.")
                     .setColor(Color.black)
-                    .setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                    .setFooter(Main.version, Main.head)
 					.setTimestamp(new Date().toInstant())
                     .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(),message.getAuthor().getEffectiveAvatarUrl(),message.getAuthor().getEffectiveAvatarUrl());
             message.getChannel().sendMessage(embedRoles.build()).queue();
             return;
         }
-        embedRoles.setColor(Color.red)
-                .setFooter("TragedyRoles v2.1 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+        embedRoles.setFooter("TragedyRoles v2.3 by ↬Surfy#0069", Main.head)
 				.setTimestamp(new Date().toInstant())
                 .addField("**Roles:** ",":orange_heart:" + Emotes.orangeRoleMsg +
                                                 "\n :yellow_heart:" + Emotes.yellowRoleMsg +
@@ -43,12 +43,45 @@ public class ReactionRoleCommand extends Command {
                                                 "\n\n *React to get a color.* ", false);
         embedConfirm.setTitle("Done!")
 				.setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(),message.getAuthor().getEffectiveAvatarUrl(),message.getAuthor().getEffectiveAvatarUrl())
-                .setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                .setFooter(Main.version, Main.head)
 				.setTimestamp(new Date().toInstant())
                 .setColor(Color.green);
 
-        message.getChannel().sendMessage(embedConfirm.build()).queue(msg -> msg.addReaction(Emotes.YES).queue());
-        Objects.requireNonNull(Main.getJDiscordAPI().getTextChannelById("767057803419582476")).sendMessage(embedRoles.build()).queue(msg -> {
+        if(args.length == 3) {
+            found = args[2].equalsIgnoreCase("white") ||
+                    args[2].equalsIgnoreCase("black") ||
+                    args[2].equalsIgnoreCase("pink") ||
+                    args[2].equalsIgnoreCase("green") ||
+                    args[2].equalsIgnoreCase("magenta") ||
+                    args[2].equalsIgnoreCase("darkgray") ||
+                    args[2].equalsIgnoreCase("lightGray") ||
+                    args[2].equalsIgnoreCase("cyan") ||
+                    args[2].equalsIgnoreCase("blue") ||
+                    args[2].equalsIgnoreCase("orange") ||
+                    args[2].equalsIgnoreCase("red");
+            if(found) {
+                if(args[2].equalsIgnoreCase("white")) embedRoles.setColor(Color.white);
+                if(args[2].equalsIgnoreCase("red")) embedRoles.setColor(Color.red);
+                if(args[2].equalsIgnoreCase("black")) embedRoles.setColor(Color.black);
+                if(args[2].equalsIgnoreCase("pink")) embedRoles.setColor(Color.pink);
+                if(args[2].equalsIgnoreCase("green")) embedRoles.setColor(Color.green);
+                if(args[2].equalsIgnoreCase("magenta")) embedRoles.setColor(Color.magenta);
+                if(args[2].equalsIgnoreCase("darkgray")) embedRoles.setColor(Color.darkGray);
+                if(args[2].equalsIgnoreCase("lightGray")) embedRoles.setColor(Color.lightGray);
+                if(args[2].equalsIgnoreCase("cyan")) embedRoles.setColor(Color.cyan);
+                if(args[2].equalsIgnoreCase("blue")) embedRoles.setColor(Color.blue);
+                if(args[2].equalsIgnoreCase("orange")) embedRoles.setColor(Color.orange);
+            }
+        }
+        if(!found) {
+            embedRoles.setColor(Color.black);
+            embedConfirm.addField("","*Invalid Color, I selected Black for you.*",false);
+        } else {
+            embedConfirm.addField("Color:",args[2],false);
+        }
+        message.getChannel().sendMessage(embedConfirm.build()).queue();
+        //message.getChannel().sendMessage(embedConfirm.build()).queue(msg -> msg.addReaction(Emotes.YES).queue());
+        Objects.requireNonNull(Main.getJDiscordAPI().getTextChannelById("692198755360833616")).sendMessage(embedRoles.build()).queue(msg -> {
             msg.addReaction(Emotes.orangeHeart).queue();
             msg.addReaction(Emotes.yellowHeart).queue();
             msg.addReaction(Emotes.greenHeart).queue();

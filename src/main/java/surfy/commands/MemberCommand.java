@@ -8,6 +8,7 @@ import surfy.API.APIManager;
 import surfy.API.GuildMember;
 import surfy.API.MojangAPI;
 import surfy.API.Player;
+import surfy.bot.Main;
 import surfy.managers.Command;
 import surfy.utils.Utils;
 
@@ -41,7 +42,7 @@ public class MemberCommand extends Command {
 
             if (!Utils.isSurfy(message.getAuthor().getId()) & !Utils.isGuildMember(Objects.requireNonNull(message.getMember()))) {
                 embedBuilder.setTitle("Error! You must be a Guild Member in order to use this bot!")
-                        .setColor(Color.red).setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                        .setColor(Color.red).setFooter(Main.version, Main.head)
 						.setTimestamp(new Date().toInstant())
                         .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(), message.getAuthor().getEffectiveAvatarUrl(), message.getAuthor().getEffectiveAvatarUrl());
                 message.getChannel().sendMessage(embedBuilder.build()).queue();
@@ -51,7 +52,7 @@ public class MemberCommand extends Command {
             if(args.length < 2) {
                 embedMemberInfo.setTitle(MarkdownUtil.italics("Type >g member <username>"))
                         .setColor(Color.cyan)
-                        .setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                        .setFooter(Main.version, Main.head)
 						.setTimestamp(new Date().toInstant())
                         .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(),message.getAuthor().getEffectiveAvatarUrl(),message.getAuthor().getEffectiveAvatarUrl());
                 message.getChannel().sendMessage(embedMemberInfo.build()).queue();
@@ -71,7 +72,7 @@ public class MemberCommand extends Command {
 
                 if(guildMember == null) {
                     embedMemberInfo.setTitle("Error! This user is not in the guild!")
-                            .setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                            .setFooter(Main.version, Main.head)
 							.setTimestamp(new Date().toInstant())
                             .setColor(Color.orange)
                             .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(),message.getAuthor().getEffectiveAvatarUrl(),message.getAuthor().getEffectiveAvatarUrl());

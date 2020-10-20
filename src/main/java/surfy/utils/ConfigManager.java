@@ -11,13 +11,16 @@ import java.util.HashMap;
 import java.util.Properties;
 
 public class ConfigManager {
+
     private static HashMap<Long,ApplicationForm> queueApplications = new HashMap<>();
+
     private GuildMember[] users;
-    public ConfigManager(GuildMember[] users){
+
+    public ConfigManager(GuildMember[] users) {
         this.users = users;
     }
 
-    private void create() throws Exception{
+    private void create() throws Exception {
         Properties properties = new Properties();
         Arrays.asList(users)
                 .stream()
@@ -28,13 +31,13 @@ public class ConfigManager {
         fos.close();
     }
 
-    public void reload() throws Exception{
+    public void reload() throws Exception {
         File file = new File("users.config");
         file.delete();
         create();
     }
 
-    public void addUser(String UUID,String username) throws Exception{
+    public void addUser(String UUID,String username) throws Exception {
         Properties properties = new Properties();
         FileInputStream fi =new FileInputStream("users.config");
         properties.load(fi);
@@ -45,7 +48,7 @@ public class ConfigManager {
         fos.close();
     }
 
-    public boolean exist(){
+    public boolean exist() {
         return new File("users.config").exists();
     }
 

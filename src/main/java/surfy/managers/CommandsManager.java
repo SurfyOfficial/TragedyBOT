@@ -5,6 +5,7 @@ import surfy.commands.*;
 import java.util.LinkedHashSet;
 
 public class CommandsManager {
+
     public static LinkedHashSet<Command> commands = new LinkedHashSet<>();
 
     public CommandsManager() {
@@ -29,6 +30,7 @@ public class CommandsManager {
         return commands;
     }
 
+    @SuppressWarnings("unused")
     public Command getCommandByClass(Class<Command> commandClass){
         return getCommands()
                 .stream()

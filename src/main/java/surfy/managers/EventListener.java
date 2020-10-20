@@ -1,24 +1,25 @@
 package surfy.managers;
 
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
 import surfy.API.APIManager;
 import surfy.API.Player;
 import surfy.bot.Main;
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import surfy.modes.Bedwars;
 import surfy.utils.ApplicationForm;
 import surfy.utils.ConfigManager;
 import surfy.utils.Emotes;
 import surfy.utils.Utils;
 
-import javax.annotation.Nonnull;
 import java.awt.*;
+import java.io.IOException;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Objects;
@@ -39,11 +40,17 @@ public class EventListener extends ListenerAdapter {
         CommandsManager.getCommands()
                 .stream()
                 .filter(command -> message.getContentDisplay().startsWith(command.getCommand()))
-                .forEach(command->command.onExecute(message,syntax));
+                .forEach(command-> {
+                    try {
+                        command.onExecute(message,syntax);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
     }
 
     @Override
-    public void onPrivateMessageReceived(@Nonnull PrivateMessageReceivedEvent event) {  /* Private Message Received Event */
+    public void onPrivateMessageReceived(PrivateMessageReceivedEvent event) {  /* Private Message Received Event */
         /* Application formatting */
         Message message = event.getMessage();
         if(ConfigManager.getQueueApplications().containsKey(event.getAuthor().getIdLong())){
@@ -100,7 +107,7 @@ public class EventListener extends ListenerAdapter {
     }
 
     @Override
-    public void onMessageReactionAdd(@Nonnull MessageReactionAddEvent event) {  /* Message Reaction Add Event */
+    public void onMessageReactionAdd(MessageReactionAddEvent event) {  /* Message Reaction Add Event */
         if(Objects.requireNonNull(event.getUser()).getId().equals(Main.getJDiscordAPI().getSelfUser().getId()))
             /* Ignores if the BOT is the author of the event. */
             return;
@@ -207,7 +214,7 @@ public class EventListener extends ListenerAdapter {
     }
 
     @Override
-    public void onMessageReactionRemove(@Nonnull MessageReactionRemoveEvent event) {  /* Message Reaction Remove Event */
+    public void onMessageReactionRemove(MessageReactionRemoveEvent event) {  /* Message Reaction Remove Event */
         if(Objects.requireNonNull(event.getUser()).getId().equals(Main.getJDiscordAPI().getSelfUser().getId()))
             /* Ignores if the BOT is the author of the event. */
             return;

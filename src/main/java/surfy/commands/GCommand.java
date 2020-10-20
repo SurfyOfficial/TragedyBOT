@@ -3,6 +3,7 @@ package surfy.commands;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.utils.MarkdownUtil;
+import surfy.bot.Main;
 import surfy.managers.Command;
 import surfy.utils.Emotes;
 import surfy.utils.Utils;
@@ -27,7 +28,7 @@ public class GCommand extends Command {
 
             if (!Utils.isSurfy(message.getAuthor().getId()) & !Utils.isGuildMember(Objects.requireNonNull(message.getMember()))) {
                 embedBuilder.setTitle("Error! You must be a Guild Member in order to use this bot!")
-                        .setColor(Color.red).setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                        .setColor(Color.red).setFooter(Main.version, Main.head)
                         .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(), message.getAuthor().getEffectiveAvatarUrl(), message.getAuthor().getEffectiveAvatarUrl());
                 message.getChannel().sendMessage(embedBuilder.build()).queue();
                 return;
@@ -42,7 +43,7 @@ public class GCommand extends Command {
                         .addField(MarkdownUtil.bold(">g weeklytop"), MarkdownUtil.italics("Sends the weekly gxp leaderboard"), false)
                         .addField(MarkdownUtil.bold(">g weeklybottom"), MarkdownUtil.italics("Sends the weekly bottom gxp leaderboard"), false)
                         .addField(MarkdownUtil.bold(">g member [username]"), MarkdownUtil.italics("Shows a specific guild member's infos"), false)
-                        .setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                        .setFooter(Main.version, Main.head)
 						.setTimestamp(new Date().toInstant())
                         .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(), message.getAuthor().getEffectiveAvatarUrl(), message.getAuthor().getEffectiveAvatarUrl())
                         .setColor(Color.green);
@@ -54,7 +55,7 @@ public class GCommand extends Command {
                 if (!Utils.isSurfy(message.getAuthor().getId()) & !Utils.isOfficer(message.getMember())) {
                     embedAdmin.setTitle("You do not have this permission.")
                             .setColor(Color.red)
-                            .setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                            .setFooter(Main.version, Main.head)
 							.setTimestamp(new Date().toInstant())
                             .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(), message.getAuthor().getEffectiveAvatarUrl(), message.getAuthor().getEffectiveAvatarUrl());
                     message.getChannel().sendMessage(embedAdmin.build()).queue();
@@ -67,7 +68,7 @@ public class GCommand extends Command {
                         .addField(MarkdownUtil.bold(">blacklist [IGN]"), MarkdownUtil.italics("Adds IGN in the " + Emotes.blChannel + " channel."), false)
                         .addField(MarkdownUtil.bold(">blacklist [IGN] @Member"), MarkdownUtil.italics("Removes guild's roles and adds IGN in the " + Emotes.blChannel + " channel."), false)
                         .setColor(Color.green)
-                        .setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                        .setFooter(Main.version, Main.head)
 						.setTimestamp(new Date().toInstant())
                         .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(), message.getAuthor().getEffectiveAvatarUrl(), message.getAuthor().getEffectiveAvatarUrl());
                 message.getChannel().sendMessage(embedAdmin.build()).queue();

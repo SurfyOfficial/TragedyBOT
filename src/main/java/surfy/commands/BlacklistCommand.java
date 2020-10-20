@@ -31,7 +31,7 @@ public class BlacklistCommand extends Command {
             /* Checks if messageAuthor is a Guild Staff. */
             embedBlacklist.setTitle("You don't have this permission.")
                     .setColor(Color.black)
-                    .setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                    .setFooter(Main.version, Main.head)
 					.setTimestamp(new Date().toInstant())
                     .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(),message.getAuthor().getEffectiveAvatarUrl(),message.getAuthor().getEffectiveAvatarUrl());
             message.getChannel().sendMessage(embedBlacklist.build()).queue();
@@ -57,7 +57,7 @@ public class BlacklistCommand extends Command {
             embedBlacklist.setTitle(memb.getUser().getName() + " | \"" + ign + "\" blacklisted successfully!")
                     .addField("Issued by: ","**"+message.getAuthor().getAsMention()+"**",false)
                     .setColor(Color.black)
-                    .setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                    .setFooter(Main.version, Main.head)
 					.setTimestamp(new Date().toInstant())
                     .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(),message.getAuthor().getEffectiveAvatarUrl(),message.getAuthor().getEffectiveAvatarUrl());
             message.getChannel().sendMessage(embedBlacklist.build()).queue();
@@ -65,7 +65,7 @@ public class BlacklistCommand extends Command {
             embedBlacklist.setTitle("\"" + ign + "\" blacklisted successfully!")
                     .addField("Issued by: ","**"+message.getAuthor().getAsMention()+"**",false)
                     .setColor(Color.black)
-                    .setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                    .setFooter(Main.version, Main.head)
 					.setTimestamp(new Date().toInstant())
                     .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(),message.getAuthor().getEffectiveAvatarUrl(),message.getAuthor().getEffectiveAvatarUrl());
             message.getChannel().sendMessage(embedBlacklist.build()).queue();

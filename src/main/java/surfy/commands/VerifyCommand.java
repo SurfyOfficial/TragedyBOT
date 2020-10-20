@@ -22,7 +22,7 @@ public class VerifyCommand extends Command {
         if(syntax.length > 1) {
             embedVerify.setTitle("Usage » !verify")
                     .setColor(Color.black)
-                    .setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec");
+                    .setFooter(Main.version, Main.head);
             message.getChannel().sendMessage(embedVerify.build()).queue();
             return;
         }
@@ -35,7 +35,7 @@ public class VerifyCommand extends Command {
                         .addField("This is very simple!","In order to verify you have to click the " + Emotes.msgYES + " reaction!",false)
                         .setColor(Color.yellow)
                         .setAuthor(message.getAuthor().getName(),message.getAuthor().getEffectiveAvatarUrl(),message.getAuthor().getEffectiveAvatarUrl())
-                        .setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                        .setFooter(Main.version, Main.head)
 						.setTimestamp(new Date().toInstant());
                 message.getChannel().sendMessage(embedVerify.build()).queue(msg -> msg.addReaction(Emotes.YES).queue());
                 message.getGuild().addRoleToMember(message.getAuthor().getId(),Utils.getUnverifiedRole()).queue();
@@ -43,7 +43,7 @@ public class VerifyCommand extends Command {
             } else {
                 embedVerify.setTitle("Error!").addField("You can't verify here.", "You have to verify in the "+ Emotes.verifyChannel + " channel.",false)
                         .setColor(Color.red)
-                        .setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                        .setFooter(Main.version, Main.head)
 						.setTimestamp(new Date().toInstant())
                         .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(),message.getAuthor().getEffectiveAvatarUrl(),message.getAuthor().getEffectiveAvatarUrl());
                 message.getChannel().sendMessage(embedVerify.build()).queue();
@@ -52,7 +52,7 @@ public class VerifyCommand extends Command {
         } else {
             embedVerify.setTitle("You're already verified.")
                     .setColor(Color.red)
-                    .setFooter("TragedyBOT v2.2 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                    .setFooter(Main.version, Main.head)
 						.setTimestamp(new Date().toInstant())
                     .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(),message.getAuthor().getEffectiveAvatarUrl(),message.getAuthor().getEffectiveAvatarUrl());
             message.getChannel().sendMessage(embedVerify.build()).queue();
