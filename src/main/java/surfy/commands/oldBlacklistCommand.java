@@ -1,19 +1,8 @@
 package surfy.commands;
 
-import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.Message;
-import surfy.bot.Main;
-import surfy.managers.Command;
-import surfy.utils.Utils;
-
-import java.awt.*;
-import java.util.Date;
-import java.util.Objects;
-
-public class BlacklistCommand extends Command {
-
-    public BlacklistCommand() {
+public class oldBlacklistCommand /*extends Command*/ {
+/*
+    public oldBlacklistCommand() {
         super(">blacklist");
     }
 
@@ -28,11 +17,11 @@ public class BlacklistCommand extends Command {
         EmbedBuilder embedBlacklist = new EmbedBuilder();
 
         if(message.getMember() != null && !Utils.isSurfy(message.getAuthor().getId()) & !Utils.isOfficer(message.getMember())) {
-            /* Checks if messageAuthor is a Guild Staff. */
+            /* Checks if messageAuthor is a Guild Staff.
             embedBlacklist.setTitle("You don't have this permission.")
                     .setColor(Color.black)
                     .setFooter(Main.version, Main.head)
-					.setTimestamp(new Date().toInstant())
+                    .setTimestamp(new Date().toInstant())
                     .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(),message.getAuthor().getEffectiveAvatarUrl(),message.getAuthor().getEffectiveAvatarUrl());
             message.getChannel().sendMessage(embedBlacklist.build()).queue();
             return;
@@ -75,4 +64,5 @@ public class BlacklistCommand extends Command {
         Objects.requireNonNull(Main.getJDiscordAPI().getTextChannelById("693555959653597255")).sendMessage(getBlCounter() + ") " + ign + ".").queue(); //normal bot
 
     }
+*/
 }

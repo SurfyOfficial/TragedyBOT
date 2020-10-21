@@ -28,17 +28,16 @@ public class UpdateCommand extends Command {
         }
         if(args[1].equalsIgnoreCase("send1")) {
             embedUpdates.setTitle("▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬" +
-                    "\n                                     **Version 2.2**" +
+                    "\n                                     **Version 2.3**" +
                     "\n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬")
-                    .setAuthor(botTag + " | 2020-10-19",gitHubUrl,botAvatarUrl)
+                    .setAuthor(botTag + " | 2020-10-22",gitHubUrl,botAvatarUrl)
                     .setColor(Color.green)
                     .addField("**[Added]**",
-                                    "\n**GitHub Repository!**" +
-                                            "\n- The **BOT SourceCode** can now be found in **GitHub**!" +
-                                            "\n*https://github.com/SurfyOfficial/TragedyBOT*\n",false)
+                                    "\n**Blacklist System**" +
+                                            "\n- New BlacklistSystem! -*Admins*.",false)
                     .addField("**[Removed]**",
                             "**Bugs** " +
-                                    "- Bugs Fix",false)
+                                    "\n- Bugs Fix",false)
                     .setFooter(Main.version, Main.head)
                     .setTimestamp(new Date().toInstant());
             message.getChannel().sendMessage(embedUpdates.build()).queue();

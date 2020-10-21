@@ -11,7 +11,6 @@ public class CommandsManager {
     public CommandsManager() {
         getCommands().add(new ApplyCommand());
         getCommands().add(new ApplyMessageCommand());
-        getCommands().add(new BlacklistCommand());
         getCommands().add(new CheckCommand());
         getCommands().add(new GCommand());
         getCommands().add(new InfoCommand());
@@ -24,6 +23,8 @@ public class CommandsManager {
         getCommands().add(new WeeklyTopCommand());
         getCommands().add(new WinsLBCommand());
         getCommands().add(new ReactionRoleCommand());
+        //getCommands().add(new oldBlacklistCommand());
+        getCommands().add(new newBlacklistCommand());
     }
 
     public static LinkedHashSet<Command> getCommands() {

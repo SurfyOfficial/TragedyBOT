@@ -23,7 +23,7 @@ public class Emotes {
 
     public static final String orangeHeart = "\uD83E\uDDE1";
     public static final String yellowHeart = "\uD83D\uDC9B";
-    public static final String greenHeart = "\uD83D\uDC9A";
+    public static final String greenHeart = "\\uD83D\\uDC9A";
     public static final String blueHeart = "\uD83D\uDC99";
     public static final String purpleHeart = "\uD83D\uDC9C";
 
