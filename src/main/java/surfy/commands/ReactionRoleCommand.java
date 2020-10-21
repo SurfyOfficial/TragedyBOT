@@ -80,8 +80,7 @@ public class ReactionRoleCommand extends Command {
             embedConfirm.addField("Color:",args[2],false);
         }
         message.getChannel().sendMessage(embedConfirm.build()).queue();
-        //message.getChannel().sendMessage(embedConfirm.build()).queue(msg -> msg.addReaction(Emotes.YES).queue());
-        Objects.requireNonNull(Main.getJDiscordAPI().getTextChannelById("692198755360833616")).sendMessage(embedRoles.build()).queue(msg -> {
+        Objects.requireNonNull(Main.getJDiscordAPI().getTextChannelById("767057803419582476")).sendMessage(embedRoles.build()).queue(msg -> {
             msg.addReaction(Emotes.orangeHeart).queue();
             msg.addReaction(Emotes.yellowHeart).queue();
             msg.addReaction(Emotes.greenHeart).queue();
