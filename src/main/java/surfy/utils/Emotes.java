@@ -9,6 +9,7 @@ public class Emotes {
     public static final String msgNO = "<:x_:757271455066095729>";
     public static final String msgAPPLY = "<:applynow:757338633052225566>";
 
+
     public static final String applyYES = "757271443674365962";
     public static final String applyNO = "757271455066095729";
 
@@ -39,8 +40,10 @@ public class Emotes {
 
     public static final String TverifyChannel = "<#765257178575536158>";
 
-    public static final String TYES = ":check__test:756126627280191548";
+
     public static final String TmsgYES = "<:check__test:756126627280191548>";
+    public static final String TmsgNO = "<:x__test:756126627330523198>";
+    public static final String TYES = ":check__test:756126627280191548";
 
     public static final String TverifyChannel = "<#765257178575536158>";
 

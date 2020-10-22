@@ -2,6 +2,7 @@ package surfy.commands;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
+import surfy.API.MojangAPI;
 import surfy.bot.Main;
 import surfy.managers.Command;
 import surfy.utils.Emotes;
@@ -22,7 +23,7 @@ public class newBlacklistCommand extends Command {
         super(">blacklist");
     }
 
-    public void onExecute(Message message, String[] args) {
+    public void onExecute(Message message, String[] args) throws Exception {
         if(message.getMember() != null && !Utils.isSurfy(message.getAuthor().getId()) & !Utils.isOfficer(message.getMember())) {
             EmbedBuilder embedPerms = new EmbedBuilder();
             /* Checks if messageAuthor is a Guild Staff. */
@@ -73,53 +74,74 @@ public class newBlacklistCommand extends Command {
         }
 
         if(args[1].equalsIgnoreCase("add")) {
-            List<String> lines = FileUtils.readLinesFromFile(new File("blacklist.txt"));
-            assert lines != null;
-            int totalUsers = lines.size();
-            if(lines.contains(args[2])) {
-                embedBlacklist.addField("**Error**","User: **" + args[2] + "** is already **Blacklisted**.",false);
+            try {
+                String UUID = MojangAPI.getUUID(args[2]);
+                String playerName = MojangAPI.getUsername(UUID);
+                List<String> lines = FileUtils.readLinesFromFile(new File("blacklist.txt"));
+                assert lines != null;
+                int totalUsers = lines.size();
+                if (lines.contains(playerName)) {
+                    embedBlacklist.addField("**Error**", "User: **" + playerName + "** is already **Blacklisted**.", false);
+                    message.getChannel().sendMessage(embedBlacklist.build()).queue();
+                    return;
+                }
+                lines.add(playerName);
+                FileUtils.writeLinesToFile(new File("blacklist.txt"), lines);
+                embedBlacklist.addField("**Success**", "User: **" + playerName + "** is now **Blacklisted**.", false);
+
+                message.getChannel().sendMessage(embedBlacklist.build()).queue();
+                //Objects.requireNonNull(message.getGuild().getTextChannelById("765221397760835595")).sendMessage((totalUsers + 1) + ") " + playerName).queue(); //test bot
+                Objects.requireNonNull(message.getGuild().getTextChannelById("693555959653597255")).sendMessage((totalUsers + 1) + ") " + playerName).queue(); //normal bot
+                return;
+            } catch (NullPointerException e) {
+                embedBlacklist.addField("**Error**","User: **" + args[2] + "** does not exist!",false);
                 message.getChannel().sendMessage(embedBlacklist.build()).queue();
                 return;
             }
-            lines.add(args[2]);
-            FileUtils.writeLinesToFile(new File("blacklist.txt"),lines);
-            embedBlacklist.addField("**Success**","User: **" + args[2] + "** is now **Blacklisted**.",false);
-
-            message.getChannel().sendMessage(embedBlacklist.build()).queue();
-            //Objects.requireNonNull(message.getGuild().getTextChannelById("765221397760835595")).sendMessage((totalUsers + 1) + ") " + args[2]).queue(); //test bot
-            Objects.requireNonNull(message.getGuild().getTextChannelById("693555959653597255")).sendMessage((totalUsers + 1) + ") " + args[2]).queue(); //normal bot
-            return;
         }
 
         if(args[1].equalsIgnoreCase("remove")) {
-            List<String> lines = FileUtils.readLinesFromFile(new File("blacklist.txt"));
-            assert lines != null;
-            int totalUsers = lines.size();
-            if(!lines.contains(args[2])) {
-                embedBlacklist.addField("**Error**","User: **" + args[2] + "** is not **Blacklisted**.",false);
+            try {
+                String UUID = MojangAPI.getUUID(args[2]);
+                String playerName = MojangAPI.getUsername(UUID);
+                List<String> lines = FileUtils.readLinesFromFile(new File("blacklist.txt"));
+                assert lines != null;
+                if(!lines.contains(playerName)) {
+                    embedBlacklist.addField("**Error**","User: **" + playerName + "** is not **Blacklisted**.",false);
+                    message.getChannel().sendMessage(embedBlacklist.build()).queue();
+                    return;
+                }
+                lines.remove(playerName);
+                FileUtils.writeLinesToFile(new File("blacklist.txt"),lines);
+                embedBlacklist.addField("**Success**","User **" + playerName + "** removed from **Blacklist**.",false);
+
+                message.getChannel().sendMessage(embedBlacklist.build()).queue();
+                //Objects.requireNonNull(message.getGuild().getTextChannelById("765221397760835595")).sendMessage(playerName+"'s **Blacklist** got removed.").queue(); //test bot
+                Objects.requireNonNull(message.getGuild().getTextChannelById("693555959653597255")).sendMessage(playerName+"'s **Blacklist** got removed.").queue(); //normal bot
+                return;
+            } catch (NullPointerException e) {
+                embedBlacklist.addField("**Error**","User: **" + args[2] + "** does not exist!",false);
                 message.getChannel().sendMessage(embedBlacklist.build()).queue();
                 return;
             }
-            lines.remove(args[2]);
-            FileUtils.writeLinesToFile(new File("blacklist.txt"),lines);
-            embedBlacklist.addField("**Success**","User **" + args[2] + "** removed from **Blacklist**.",false);
-
-            message.getChannel().sendMessage(embedBlacklist.build()).queue();
-            //Objects.requireNonNull(message.getGuild().getTextChannelById("765221397760835595")).sendMessage(args[2]+"'s **Blacklist** got removed.").queue(); //test bot
-            Objects.requireNonNull(message.getGuild().getTextChannelById("693555959653597255")).sendMessage(args[2]+"'s **Blacklist** got removed.").queue(); //normal bot
-            return;
         }
 
         if(args[1].equalsIgnoreCase("check")) {
-            List<String> lines = FileUtils.readLinesFromFile(new File("blacklist.txt"));
-            assert lines != null;
-            String ign = args[2];
-            if(lines.contains(ign)) {
-                embedBlacklist.addField("**Result**:", Emotes.msgYES + ign + " is **Blacklisted**. ",false);
-            } else {
-                embedBlacklist.addField("**Result**:",Emotes.msgNO + ign + " is not **Blacklisted**. ",false);
+            try {
+                String UUID = MojangAPI.getUUID(args[2]);
+                String playerName = MojangAPI.getUsername(UUID);
+                List<String> lines = FileUtils.readLinesFromFile(new File("blacklist.txt"));
+                assert lines != null;
+                if(lines.contains(playerName)) {
+                    embedBlacklist.addField("**Result**:", Emotes.msgYES + " " + playerName + " is **Blacklisted**. ",false);
+                } else {
+                    embedBlacklist.addField("**Result**:",Emotes.msgNO + " " + playerName + " is not **Blacklisted**. ",false);
+                }
+                message.getChannel().sendMessage(embedBlacklist.build()).queue();
+            } catch (NullPointerException e) {
+                embedBlacklist.addField("**Error**","User: **" + args[2] + "** does not exist!",false);
+                message.getChannel().sendMessage(embedBlacklist.build()).queue();
             }
-            message.getChannel().sendMessage(embedBlacklist.build()).queue();
         }
     }
 }

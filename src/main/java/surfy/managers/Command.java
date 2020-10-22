@@ -3,8 +3,6 @@ package surfy.managers;
 
 import net.dv8tion.jda.api.entities.Message;
 
-import java.io.IOException;
-
 public class Command {
     
     private String command;
@@ -19,7 +17,7 @@ public class Command {
         return command;
     }
 
-    public void onExecute(Message message,String[] syntax) throws IOException {
+    public void onExecute(Message message,String[] syntax) throws Exception {
         /* Command Base */
     }
 }

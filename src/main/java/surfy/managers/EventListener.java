@@ -19,7 +19,6 @@ import surfy.utils.Emotes;
 import surfy.utils.Utils;
 
 import java.awt.*;
-import java.io.IOException;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Objects;
@@ -43,7 +42,7 @@ public class EventListener extends ListenerAdapter {
                 .forEach(command-> {
                     try {
                         command.onExecute(message,syntax);
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 });

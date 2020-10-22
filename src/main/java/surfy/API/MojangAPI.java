@@ -7,6 +7,7 @@ import org.jsoup.Jsoup;
 import surfy.bot.Main;
 import surfy.utils.Utils;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.Properties;
 
@@ -29,6 +30,13 @@ public class MojangAPI {
         }
     }
 
+    public static String getUsername(String UUID) throws IOException {
+        String content = Jsoup.connect("https://api.mojang.com/user/profiles/"+UUID+"/names").ignoreContentType(true).execute().body();
+        Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
+        PreviousPlayerNameEntry[] names = gson.fromJson(content, PreviousPlayerNameEntry[].class);
+        return names[names.length-1].getPlayerName();
+    }
+
     public static String getUUID(String username,boolean config) {
         try{
             if(config){
@@ -42,6 +50,13 @@ public class MojangAPI {
             if(Main.getConfigManager().exist()) Main.getConfigManager().addUser(UUID,username);
             return UUID;
         }catch(Exception exc){return null;}
+    }
+
+    public static String getUUID(String username) throws IOException {
+        String content = Jsoup.connect("https://api.mojang.com/users/profiles/minecraft/"+username).ignoreContentType(true).execute().body();
+        Gson gson = new GsonBuilder().serializeNulls().setPrettyPrinting().create();
+        Profile profile = gson.fromJson(content,Profile.class);
+        return profile.getId();
     }
 }
 
