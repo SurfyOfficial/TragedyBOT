@@ -41,8 +41,11 @@ public class newBlacklistCommand extends Command {
         EmbedBuilder embedConfirm = new EmbedBuilder();
         EmbedBuilder embedUsg = new EmbedBuilder();
         embedUsg.setColor(Color.red)
-                .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(),message.getAuthor().getEffectiveAvatarUrl(),
-                message.getAuthor().getEffectiveAvatarUrl()).setTitle("**Usage** » >blacklist add/remove/check/list [IGN]")
+                .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(),message.getAuthor().getEffectiveAvatarUrl(),message.getAuthor().getEffectiveAvatarUrl())
+                .setTitle("**Usage:**")
+                .addField(">blacklist add [IGN] [Reason]","Adds IGN to blacklist with a reason. *(default reason: Not specified.)*",false)
+                .addField(">blacklist remove [IGN] [Reason]","Removes IGN from blacklist with a reason. *(default reason: Not specified.)*",false)
+                .addField(">blacklist check [IGN] ","Adds IGN to blacklist with a reason. *(default reason: Not specified.)*",false)
                 .setFooter(Main.version, Main.head);
 
         embedBlacklist.setColor(Color.red)
@@ -115,8 +118,8 @@ public class newBlacklistCommand extends Command {
 
                 message.getChannel().sendMessage(embedBlacklist.build()).queue();
 
-                Objects.requireNonNull(message.getGuild().getTextChannelById("765221397760835595")).sendMessage(embedConfirm.build()).queue(); //test bot
-                //Objects.requireNonNull(message.getGuild().getTextChannelById("693555959653597255")).sendMessage(embedConfirm.build()).queue(); //normal bot
+                //Objects.requireNonNull(message.getGuild().getTextChannelById("765221397760835595")).sendMessage(embedConfirm.build()).queue(); //test bot
+                Objects.requireNonNull(message.getGuild().getTextChannelById("693555959653597255")).sendMessage(embedConfirm.build()).queue(); //normal bot
                 return;
             } catch (NullPointerException e) {
                 embedBlacklist.addField("**Error**","User: **" + MarkdownSanitizer.escape(args[2]) + "** does not exist!",false)
@@ -162,8 +165,8 @@ public class newBlacklistCommand extends Command {
 
                 message.getChannel().sendMessage(embedBlacklist.build()).queue();
 
-                Objects.requireNonNull(message.getGuild().getTextChannelById("765221397760835595")).sendMessage(embedConfirm.build()).queue(); //test bot
-                //Objects.requireNonNull(message.getGuild().getTextChannelById("693555959653597255")).sendMessage(embedConfirm.build()).queue(); //normal bot
+                //Objects.requireNonNull(message.getGuild().getTextChannelById("765221397760835595")).sendMessage(embedConfirm.build()).queue(); //test bot
+                Objects.requireNonNull(message.getGuild().getTextChannelById("693555959653597255")).sendMessage(embedConfirm.build()).queue(); //normal bot
                 return;
             } catch (NullPointerException e) {
                 embedBlacklist.addField("**Error**","User: **" + MarkdownSanitizer.escape(args[2]) + "** does not exist!",false)
@@ -181,6 +184,7 @@ public class newBlacklistCommand extends Command {
                 assert lines != null;
                 if(lines.contains(playerName)) {
                     embedBlacklist.addField("**Result**:", Emotes.msgYES + " " + MarkdownSanitizer.escape(playerName) + " is **Blacklisted**. ",false)
+                            .addField("Reason:","*To be updated*",false)
                             .setFooter(Main.version, Main.head);
                 } else {
                     embedBlacklist.addField("**Result**:",Emotes.msgNO + " " + MarkdownSanitizer.escape(playerName) + " is not **Blacklisted**. ",false)
