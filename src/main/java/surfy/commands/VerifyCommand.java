@@ -39,7 +39,6 @@ public class VerifyCommand extends Command {
 						.setTimestamp(new Date().toInstant());
                 message.getChannel().sendMessage(embedVerify.build()).queue(msg -> msg.addReaction(Emotes.YES).queue());
                 message.getGuild().addRoleToMember(message.getAuthor().getId(),Utils.getUnverifiedRole()).queue();
-                return;
             } else {
                 embedVerify.setTitle("Error!").addField("You can't verify here.", "You have to verify in the "+ Emotes.verifyChannel + " channel.",false)
                         .setColor(Color.red)
@@ -47,7 +46,6 @@ public class VerifyCommand extends Command {
 						.setTimestamp(new Date().toInstant())
                         .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(),message.getAuthor().getEffectiveAvatarUrl(),message.getAuthor().getEffectiveAvatarUrl());
                 message.getChannel().sendMessage(embedVerify.build()).queue();
-                return;
             }
         } else {
             embedVerify.setTitle("You're already verified.")

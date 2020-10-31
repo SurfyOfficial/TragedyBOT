@@ -45,7 +45,8 @@ public class newBlacklistCommand extends Command {
                 .setTitle("**Usage:**")
                 .addField(">blacklist add [IGN] [Reason]","Adds IGN to blacklist with a reason. *(default reason: Not specified.)*",false)
                 .addField(">blacklist remove [IGN] [Reason]","Removes IGN from blacklist with a reason. *(default reason: Not specified.)*",false)
-                .addField(">blacklist check [IGN] ","Adds IGN to blacklist with a reason. *(default reason: Not specified.)*",false)
+                .addField(">blacklist check [IGN] ","Checks if that IGN is blacklisted.",false)
+                .addField(">blacklist list","Sends the blacklisted users' list.",false)
                 .setFooter(Main.version, Main.head);
 
         embedBlacklist.setColor(Color.red)

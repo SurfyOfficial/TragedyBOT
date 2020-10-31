@@ -1,6 +1,9 @@
 package surfy.utils;
 
-import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.User;
 import surfy.bot.Main;
 
 import java.sql.Timestamp;
@@ -177,7 +180,6 @@ public class Utils {
     public static Role getGreenColor() {
         return Main.getJDiscordAPI().getRolesByName("Green",true).get(0);
     }
-
 
     public static Role getApplicantRole(){
         return Main.getJDiscordAPI().getRolesByName("Applicant",true).get(0);

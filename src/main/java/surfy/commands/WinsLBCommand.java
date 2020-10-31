@@ -11,10 +11,7 @@ import surfy.utils.IndexedMap;
 import surfy.utils.Utils;
 
 import java.awt.*;
-import java.util.Date;
-import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 public class WinsLBCommand extends Command {
 
@@ -50,6 +47,12 @@ public class WinsLBCommand extends Command {
                     return;
                 }
                 EmbedBuilder embedConfirm = new EmbedBuilder();
+
+                LinkedList<Message> messageList = (LinkedList<Message>) Objects.requireNonNull(Main.getJDiscordAPI().getTextChannelById("765207590060818452")).getHistory().retrievePast(2).complete();
+                Objects.requireNonNull(Main.getJDiscordAPI().getTextChannelById("765207590060818452")).deleteMessages(messageList).queue();
+
+                Objects.requireNonNull(Main.getJDiscordAPI().getTextChannelById("765207590060818452")).sendMessage("Guild's BedWars Wins will be desplayed here.").queue();
+
                 embedConfirm.setTitle("Successfully created a new Leaderboard!")
                         .addField("Note: This is an automatic leaderboard. **Don't create copies!!**","Check it in the " + Emotes.lbChannel + " channel.",false)
                         .setColor(Color.green)
@@ -63,6 +66,7 @@ public class WinsLBCommand extends Command {
 						.setTimestamp(new Date().toInstant())
 						.setColor(Color.orange);
                 Timer timer = new Timer();
+
 
                 //Objects.requireNonNull(Main.getJDiscordAPI().getTextChannelById("765214168085168158")).sendMessage(embedTop.build()).queue(response -> { //test bot
                 Objects.requireNonNull(Main.getJDiscordAPI().getTextChannelById("765207590060818452")).sendMessage(embedTop.build()).queue(response -> { //normal bot
