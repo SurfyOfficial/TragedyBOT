@@ -2,6 +2,8 @@ package surfy.commands;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.utils.MarkdownSanitizer;
+import net.dv8tion.jda.api.utils.MarkdownUtil;
 import surfy.API.MojangAPI;
 import surfy.bot.Main;
 import surfy.managers.Command;
@@ -36,10 +38,12 @@ public class newBlacklistCommand extends Command {
             return;
         }
         EmbedBuilder embedBlacklist = new EmbedBuilder();
+        EmbedBuilder embedConfirm = new EmbedBuilder();
         EmbedBuilder embedUsg = new EmbedBuilder();
         embedUsg.setColor(Color.red)
                 .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(),message.getAuthor().getEffectiveAvatarUrl(),
-                message.getAuthor().getEffectiveAvatarUrl()).setTitle("**Usage** » >blacklist add/remove/check/list [IGN]");
+                message.getAuthor().getEffectiveAvatarUrl()).setTitle("**Usage** » >blacklist add/remove/check/list [IGN]")
+                .setFooter(Main.version, Main.head);
 
         embedBlacklist.setColor(Color.red)
                 .setFooter(Main.version,Main.head)
@@ -50,6 +54,7 @@ public class newBlacklistCommand extends Command {
             message.getChannel().sendMessage(embedUsg.build()).queue();
             return;
         }
+
         if(args[1].equalsIgnoreCase("list")) {
             try {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(new File("blacklist.txt")), StandardCharsets.UTF_8));
@@ -58,8 +63,9 @@ public class newBlacklistCommand extends Command {
                 int totalUsers = lines.size();
 
                 lines.forEach(line -> builder.append(line).append(", "));
-                embedBlacklist.addField("**Blacklisted people who can no longer join Tragedy:**",builder.toString().substring(0,builder.toString().length() - 1),false)
-                        .addField("**Total**", totalUsers + " users.",false);
+                embedBlacklist.addField("**Blacklisted people who can no longer join Tragedy:**",builder.toString().substring(0,builder.toString().length() - 2),false)
+                        .addField("**Total**", totalUsers + " users.",false)
+                        .setFooter(Main.version, Main.head);
 
                 message.getChannel().sendMessage(embedBlacklist.build()).queue();
             } catch (FileNotFoundException e) {
@@ -68,7 +74,7 @@ public class newBlacklistCommand extends Command {
             return;
         }
 
-        if(args.length < 3 || args.length > 4) {
+        if(args.length < 3) {
             message.getChannel().sendMessage(embedUsg.build()).queue();
             return;
         }
@@ -81,20 +87,40 @@ public class newBlacklistCommand extends Command {
                 assert lines != null;
                 int totalUsers = lines.size();
                 if (lines.contains(playerName)) {
-                    embedBlacklist.addField("**Error**", "User: **" + playerName + "** is already **Blacklisted**.", false);
+                    embedBlacklist.addField("**Error**", "User: **" + MarkdownSanitizer.escape(playerName) + "** is already **Blacklisted**.", false)
+                            .setFooter(Main.version, Main.head);
                     message.getChannel().sendMessage(embedBlacklist.build()).queue();
                     return;
                 }
                 lines.add(playerName);
                 FileUtils.writeLinesToFile(new File("blacklist.txt"), lines);
-                embedBlacklist.addField("**Success**", "User: **" + playerName + "** is now **Blacklisted**.", false);
+                embedBlacklist.addField("**Success**", "User: **" + MarkdownSanitizer.escape(playerName) + "** is now **Blacklisted**.", false)
+                        .setFooter(Main.version, Main.head);
+
+                embedConfirm.setColor(Color.red)
+                        .setTitle(MarkdownSanitizer.escape((totalUsers + 1) + ") " + playerName))
+                        .setFooter(Main.version, Main.head)
+                        .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(),message.getAuthor().getEffectiveAvatarUrl(),message.getAuthor().getEffectiveAvatarUrl());
+                if(args.length > 3) {
+                    StringBuilder reason = new StringBuilder();
+                    for(int i = 3;i<args.length;++i) {
+                        reason.append(args[i]).append(" ");
+                    }
+                    embedBlacklist.addField("Reason:", MarkdownUtil.italics(reason.toString()),false);
+                    embedConfirm.addField("Reason:", MarkdownUtil.italics(reason.toString()),false);
+                } else {
+                    embedBlacklist.addField("Reason:", "*Not specified.*",false);
+                    embedConfirm.addField("Reason:","*Not specified.*",false);
+                }
 
                 message.getChannel().sendMessage(embedBlacklist.build()).queue();
-                //Objects.requireNonNull(message.getGuild().getTextChannelById("765221397760835595")).sendMessage((totalUsers + 1) + ") " + playerName).queue(); //test bot
-                Objects.requireNonNull(message.getGuild().getTextChannelById("693555959653597255")).sendMessage((totalUsers + 1) + ") " + playerName).queue(); //normal bot
+
+                Objects.requireNonNull(message.getGuild().getTextChannelById("765221397760835595")).sendMessage(embedConfirm.build()).queue(); //test bot
+                //Objects.requireNonNull(message.getGuild().getTextChannelById("693555959653597255")).sendMessage(embedConfirm.build()).queue(); //normal bot
                 return;
             } catch (NullPointerException e) {
-                embedBlacklist.addField("**Error**","User: **" + args[2] + "** does not exist!",false);
+                embedBlacklist.addField("**Error**","User: **" + MarkdownSanitizer.escape(args[2]) + "** does not exist!",false)
+                        .setFooter(Main.version, Main.head);
                 message.getChannel().sendMessage(embedBlacklist.build()).queue();
                 return;
             }
@@ -107,20 +133,41 @@ public class newBlacklistCommand extends Command {
                 List<String> lines = FileUtils.readLinesFromFile(new File("blacklist.txt"));
                 assert lines != null;
                 if(!lines.contains(playerName)) {
-                    embedBlacklist.addField("**Error**","User: **" + playerName + "** is not **Blacklisted**.",false);
+                    embedBlacklist.addField("**Error**","User: **" + MarkdownSanitizer.escape(playerName) + "** is not **Blacklisted**.",false)
+                            .setFooter(Main.version, Main.head);
                     message.getChannel().sendMessage(embedBlacklist.build()).queue();
                     return;
                 }
                 lines.remove(playerName);
                 FileUtils.writeLinesToFile(new File("blacklist.txt"),lines);
-                embedBlacklist.addField("**Success**","User **" + playerName + "** removed from **Blacklist**.",false);
+                embedBlacklist.setColor(Color.green)
+                        .addField("**Success**","User **" + playerName + "** removed from **Blacklist**.",false)
+                        .setFooter(Main.version, Main.head);
+
+                embedConfirm.setColor(Color.green)
+                        .setTitle(MarkdownSanitizer.escape(playerName) + "'s Blacklist got removed.")
+                        .setFooter(Main.version, Main.head)
+                        .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(),message.getAuthor().getEffectiveAvatarUrl(),message.getAuthor().getEffectiveAvatarUrl());
+                if(args.length > 3) {
+                    StringBuilder reason = new StringBuilder();
+                    for(int i = 3;i<args.length;++i) {
+                        reason.append(args[i]).append(" ");
+                    }
+                    embedBlacklist.addField("Reason:", MarkdownUtil.italics(reason.toString()),false);
+                    embedConfirm.addField("Reason:", MarkdownUtil.italics(reason.toString()),false);
+                } else {
+                    embedBlacklist.addField("Reason:", "*Not specified.*",false);
+                    embedConfirm.addField("Reason:","*Not specified.*",false);
+                }
 
                 message.getChannel().sendMessage(embedBlacklist.build()).queue();
-                //Objects.requireNonNull(message.getGuild().getTextChannelById("765221397760835595")).sendMessage(playerName+"'s **Blacklist** got removed.").queue(); //test bot
-                Objects.requireNonNull(message.getGuild().getTextChannelById("693555959653597255")).sendMessage(playerName+"'s **Blacklist** got removed.").queue(); //normal bot
+
+                Objects.requireNonNull(message.getGuild().getTextChannelById("765221397760835595")).sendMessage(embedConfirm.build()).queue(); //test bot
+                //Objects.requireNonNull(message.getGuild().getTextChannelById("693555959653597255")).sendMessage(embedConfirm.build()).queue(); //normal bot
                 return;
             } catch (NullPointerException e) {
-                embedBlacklist.addField("**Error**","User: **" + args[2] + "** does not exist!",false);
+                embedBlacklist.addField("**Error**","User: **" + MarkdownSanitizer.escape(args[2]) + "** does not exist!",false)
+                        .setFooter(Main.version, Main.head);
                 message.getChannel().sendMessage(embedBlacklist.build()).queue();
                 return;
             }
@@ -133,13 +180,15 @@ public class newBlacklistCommand extends Command {
                 List<String> lines = FileUtils.readLinesFromFile(new File("blacklist.txt"));
                 assert lines != null;
                 if(lines.contains(playerName)) {
-                    embedBlacklist.addField("**Result**:", Emotes.msgYES + " " + playerName + " is **Blacklisted**. ",false);
+                    embedBlacklist.addField("**Result**:", Emotes.msgYES + " " + MarkdownSanitizer.escape(playerName) + " is **Blacklisted**. ",false)
+                            .setFooter(Main.version, Main.head);
                 } else {
-                    embedBlacklist.addField("**Result**:",Emotes.msgNO + " " + playerName + " is not **Blacklisted**. ",false);
+                    embedBlacklist.addField("**Result**:",Emotes.msgNO + " " + MarkdownSanitizer.escape(playerName) + " is not **Blacklisted**. ",false)
+                            .setFooter(Main.version, Main.head);
                 }
                 message.getChannel().sendMessage(embedBlacklist.build()).queue();
             } catch (NullPointerException e) {
-                embedBlacklist.addField("**Error**","User: **" + args[2] + "** does not exist!",false);
+                embedBlacklist.addField("**Error**","User: **" + MarkdownSanitizer.escape(args[2]) + "** does not exist!",false);
                 message.getChannel().sendMessage(embedBlacklist.build()).queue();
             }
         }

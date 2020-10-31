@@ -33,19 +33,18 @@ public class EventListener extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
-        /* Read texts as commands */
         Message message = event.getMessage();
         String[] syntax = message.getContentDisplay().split(" ");
         CommandsManager.getCommands()
-                .stream()
-                .filter(command -> message.getContentDisplay().startsWith(command.getCommand()))
-                .forEach(command-> {
-                    try {
-                        command.onExecute(message,syntax);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                });
+            .stream()
+            .filter(command -> message.getContentDisplay().startsWith(command.getCommand()))
+            .forEach(command -> {
+                try {
+                    command.onExecute(message, syntax);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            });
     }
 
     @Override
@@ -146,10 +145,10 @@ public class EventListener extends ListenerAdapter {
                 EmbedBuilder embedVerify = new EmbedBuilder();
                 User user = Main.getJDiscordAPI().getUsersByName(Objects.requireNonNull(Objects.requireNonNull(message.getEmbeds().get(0).getAuthor()).getName()),true).get(0);
                 embedVerify.setTitle(user.getAsTag() + " verified successfully!")
-                        .addField(user.getAsMention(),user.getId(),false)
+                        .addField("ID: " + user.getId(),"Tag: " + user.getAsMention(),false)
                         .setColor(Color.green)
                         .setAuthor(user.getAsTag() + " | " + user.getId(),user.getEffectiveAvatarUrl(),user.getEffectiveAvatarUrl())
-                        .setFooter("TragedyBOT v1.1 by ↬Surfy#0069", "https://visage.surgeplay.com/head/8/b32bf3ceba1e4c4ca4d5274dd9c89eec")
+                        .setFooter(Main.version, Main.head)
                         .setTimestamp(new Date().toInstant());
                 message.editMessage(embedVerify.build()).queue();
                 return;
