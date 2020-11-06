@@ -23,7 +23,7 @@ public class CommandsManager {
         getCommands().add(new WeeklyTopCommand());
         getCommands().add(new WinsLBCommand());
         getCommands().add(new ReactionRoleCommand());
-        //getCommands().add(new oldBlacklistCommand());
+        getCommands().add(new TicketCommand());
         getCommands().add(new newBlacklistCommand());
     }
 

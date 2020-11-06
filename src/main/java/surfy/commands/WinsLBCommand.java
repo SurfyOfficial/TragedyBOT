@@ -38,9 +38,9 @@ public class WinsLBCommand extends Command {
 
             if(args[1].equalsIgnoreCase("winslb")) {
                 if(!Utils.isSurfy(message.getAuthor().getId()) & !Utils.isOfficer(message.getMember())) {
-                    embedTop.setTitle("You do not have this permission.");
-                    embedTop.setColor(Color.red);
-                    embedTop.setFooter(Main.version, Main.head)
+                    embedTop.setTitle("You do not have this permission.")
+                            .setColor(Color.red)
+                            .setFooter(Main.version, Main.head)
 							.setTimestamp(new Date().toInstant())
                             .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(),message.getAuthor().getEffectiveAvatarUrl(),message.getAuthor().getEffectiveAvatarUrl());
                     message.getChannel().sendMessage(embedTop.build()).queue();
@@ -57,14 +57,14 @@ public class WinsLBCommand extends Command {
                         .addField("Note: This is an automatic leaderboard. **Don't create copies!!**","Check it in the " + Emotes.lbChannel + " channel.",false)
                         .setColor(Color.green)
                         .setFooter(Main.version, Main.head)
-						.setTimestamp(new Date().toInstant())
+                        .setTimestamp(new Date().toInstant())
                         .setAuthor(message.getAuthor().getAsTag() + " | " + message.getAuthor().getId(),message.getAuthor().getEffectiveAvatarUrl(),message.getAuthor().getEffectiveAvatarUrl());
                 message.getChannel().sendMessage(embedConfirm.build()).queue(msg -> msg.addReaction(Emotes.YES).queue());
 
                 embedTop.setTitle("Calculating wins leaderboard...")
-						.setFooter(Main.version, Main.head)
-						.setTimestamp(new Date().toInstant())
-						.setColor(Color.orange);
+                        .setFooter(Main.version, Main.head)
+                        .setTimestamp(new Date().toInstant())
+                        .setColor(Color.orange);
                 Timer timer = new Timer();
 
 
@@ -74,9 +74,9 @@ public class WinsLBCommand extends Command {
                         @Override
                         public void run() {
                             try {
-                                embedTop.clear();
-                                embedTop.setTitle("Guild's BedWars Wins - Leaderboard");
-                                embedTop.setColor(Color.green);
+                                embedTop.clear()
+                                        .setTitle("Guild's BedWars Wins - Leaderboard")
+                                        .setColor(Color.green);
                                 (new APIManager()).getWinsLeaderboard()
                                         .stream()
                                         .map(IndexedMap.indexed())

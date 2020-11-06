@@ -7,8 +7,6 @@ import java.util.stream.Collectors;
 
 public class FileUtils {
 
-
-
     public static List<String> readLinesFromFile(File file) {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8));
@@ -29,7 +27,6 @@ public class FileUtils {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 
 

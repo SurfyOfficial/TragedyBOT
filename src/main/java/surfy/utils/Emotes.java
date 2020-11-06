@@ -24,7 +24,7 @@ public class Emotes {
 
     public static final String orangeHeart = "\uD83E\uDDE1";
     public static final String yellowHeart = "\uD83D\uDC9B";
-    public static final String greenHeart = "\\uD83D\\uDC9A";
+    public static final String greenHeart = "\uD83D\uDC9A";
     public static final String blueHeart = "\uD83D\uDC99";
     public static final String purpleHeart = "\uD83D\uDC9C";
 
@@ -34,9 +34,15 @@ public class Emotes {
     public static final String blueRoleMsg = "<@&767054359548264480>";
     public static final String purpleRoleMsg = "<@&767054217856679998>";
 
+    public static final String ticketEmoji = "\uD83D\uDCE9";
+    public static final String closeTicketEmoji = "\uD83D\uDD12";
+
+    public static final String ticketReaction = "\uD83D\uDCE9";
+    public static final String closeTicketReaction = "\uD83D\uDD12";
 
 
-/**
+
+/*
 
     public static final String TverifyChannel = "<#765257178575536158>";
 

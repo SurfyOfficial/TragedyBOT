@@ -15,6 +15,9 @@ import java.util.stream.StreamSupport;
 
 public class Utils {
 
+
+    public static final String botAvatar = Main.getJDiscordAPI().getSelfUser().getEffectiveAvatarUrl();
+
     public static  <T> Stream<T> getStream(Iterator<T> iterator){
         Spliterator<T> spliterator = Spliterators.spliteratorUnknownSize(iterator,0);
         return StreamSupport.stream(spliterator,false);
@@ -68,6 +71,14 @@ public class Utils {
                 .stream()
                 .filter(role->role.getName().equalsIgnoreCase("Helper") ||
                         role.getName().equalsIgnoreCase("Senior") ||
+                        role.getName().equalsIgnoreCase("Owner"))
+                .count() > 0;
+    }
+
+    public static boolean isOwner(Member member) {
+        return member.getRoles()
+                .stream()
+                .filter(role -> role.getName().equalsIgnoreCase("TragedyBOT") ||
                         role.getName().equalsIgnoreCase("Owner"))
                 .count() > 0;
     }

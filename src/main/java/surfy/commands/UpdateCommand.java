@@ -28,13 +28,13 @@ public class UpdateCommand extends Command {
         }
         if(args[1].equalsIgnoreCase("send1")) {
             embedUpdates.setTitle("▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬" +
-                    "\n                                     **Version 2.3**" +
+                    "\n                                     **Version 2.4.1**" +
                     "\n▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬")
-                    .setAuthor(botTag + " | 2020-10-22",gitHubUrl,botAvatarUrl)
+                    .setAuthor(botTag + " | 2020-11-06",gitHubUrl,botAvatarUrl)
                     .setColor(Color.green)
                     .addField("**[Added]**",
-                                    "\n**Blacklist System**" +
-                                            "\n- New BlacklistSystem! -*Admins*.",false)
+                                    "\n**Ticket System**" +
+                                            "\n- New TicketSystem for support! <#774208888081874984> -*everyone*.",false)
                     .addField("**[Removed]**",
                             "**Bugs** " +
                                     "\n- Bugs Fix",false)
